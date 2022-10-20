@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background: theme(colors.black);
+  color: theme(colors.white);
+  font-family: sans-serif;
+  user-select: none;
+}
