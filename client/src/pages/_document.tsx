@@ -13,6 +13,10 @@ export default class CustomDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" href="/logo192.png" />
           <link rel="manifest" href="/manifest.json" />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
         </Head>
 
         <body>
