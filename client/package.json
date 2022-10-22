@@ -5,8 +5,7 @@
     "start": "next start",
     "dev": "next dev",
     "build": "next build",
-    "export": "next export",
-    "deploy": "npm run build && vercel --prod"
+    "export": "next export"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.3.1",

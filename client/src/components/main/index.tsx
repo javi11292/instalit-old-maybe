@@ -9,7 +9,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
   return (
     <div className="absolute h-screen w-screen">
       <AppBar buttons={buttons}>
-        <Link href="/">
+        <Link href="/" passHref>
           <Button disableUpperCase>Instalit</Button>
         </Link>
       </AppBar>
