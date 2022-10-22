@@ -17,7 +17,7 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Client</title>
+        <title>Instalit</title>
       </Head>
 
       <Main>{Component.getLayout?.(page) || page}</Main>
