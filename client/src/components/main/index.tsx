@@ -4,7 +4,7 @@ import AppBar from "ui/app-bar";
 import Button from "ui/button";
 
 export default function Main({ children }: { children: React.ReactNode }) {
-  const buttons = <Button icon>logout</Button>;
+  const buttons = <Button icon>login</Button>;
 
   return (
     <div className="absolute h-screen w-screen">

@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  client:
+    build:
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./client/src:/app/src
+    entrypoint: npm run dev
+
+  server:
+    build:
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./server/src:/app/src
+    entrypoint: npx concurrently "npm run build:dev" "npm run dev"
+
+  nginx:
+    logging:
+      driver: none
+    volumes:
+      - ./nginx.development.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80

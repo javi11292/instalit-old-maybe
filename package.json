@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "install": "npx concurrently \"cd client && npm install\" \"cd server && npm install\"",
+    "start": "npm run docker -- up --build -d",
+    "dev": "npm run docker -- -f docker-compose.development.yml up --build",
+    "docker": "docker-compose -f docker-compose.yml"
+  },
+  "dependencies": {
+    "concurrently": "^7.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.3",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "8.25.0",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "typescript": "4.8.4"
+  }
+}
