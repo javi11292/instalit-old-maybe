@@ -2,7 +2,7 @@ import { NextComponentType } from "next";
 import { AppProps } from "next/app";
 import Head from "next/head";
 
-import "./app.css";
+import "./_app.css";
 
 export default function App({
   Component,
