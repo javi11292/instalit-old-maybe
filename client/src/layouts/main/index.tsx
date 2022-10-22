@@ -3,8 +3,12 @@ import Link from "next/link";
 import AppBar from "ui/app-bar";
 import Button from "ui/button";
 
-export default function Main({ children }: { children: React.ReactNode }) {
-  const buttons = <Button icon>login</Button>;
+function Main({ children }: { children: React.ReactNode }) {
+  const buttons = (
+    <Link href="/login" passHref>
+      <Button icon>login</Button>
+    </Link>
+  );
 
   return (
     <div className="absolute h-screen w-screen">
@@ -16,4 +20,8 @@ export default function Main({ children }: { children: React.ReactNode }) {
       {children}
     </div>
   );
+}
+
+export function getMainLayout(page: React.ReactNode) {
+  return <Main>{page}</Main>;
 }
