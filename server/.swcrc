@@ -4,9 +4,9 @@
       "syntax": "typescript"
     },
     "paths": {
-      "*": ["../*", "*"]
+      "*": ["*", "./src"]
     },
-    "baseUrl": "src"
+    "baseUrl": "."
   },
   "module": {
     "type": "commonjs"
