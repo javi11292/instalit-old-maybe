@@ -3,14 +3,23 @@ import Form from "components/form";
 import Button from "ui/button";
 
 const fields = [
-  { name: "USERNAME", label: "Usuario" },
-  { name: "PASSWORD", label: "Contraseña", type: "password" },
-  { name: "CONFIRM_PASSWORD", label: "Repite la contraseña", type: "password" },
-];
+  { name: "username", label: "Usuario" },
+  { name: "password", label: "Contraseña", type: "password" },
+  { name: "confirmPassword", label: "Repite la contraseña", type: "password" },
+] as const;
 
 export default function Register() {
-  function handleSubmit() {
-    console.log("SUBMIT");
+  function handleSubmit({
+    password,
+    confirmPassword,
+  }: {
+    username: string;
+    password: string;
+    confirmPassword: string;
+  }) {
+    if (password !== confirmPassword) {
+      throw new Error("Las contraseñas no coinciden");
+    }
   }
 
   return (

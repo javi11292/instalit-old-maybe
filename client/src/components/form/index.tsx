@@ -2,14 +2,16 @@ import { useState, useRef, useCallback } from "react";
 
 import Input, { InputProps } from "ui/input";
 
-export default function Form({
+export default function Form<
+  T extends Readonly<({ name: string } & InputProps)[]>
+>({
   fields,
   children,
   onSubmit,
 }: {
-  fields: ({ name: string } & InputProps)[];
+  fields: T;
   children: ({ onClick }: { onClick: () => void }) => React.ReactNode;
-  onSubmit: () => void;
+  onSubmit: (props: Record<T[number]["name"], string>) => void;
 }) {
   const elements = useRef<Record<string, HTMLInputElement>>({});
   const [values, setValues] = useState<Record<string, string>>({});
@@ -25,7 +27,13 @@ export default function Form({
   }
 
   function submit() {
-    onSubmit();
+    try {
+      onSubmit(values);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   }
 
   function handleKeyDown({
