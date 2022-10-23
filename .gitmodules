@@ -1,6 +1,6 @@
 [submodule "libraries"]
 	path = client/src/libraries
-	url = https://github.com/javi11292/libraries.git
+	url = ../libraries.git
 [submodule "ui"]
 	path = client/src/ui
-	url = https://github.com/javi11292/ui.git
+	url = ../ui.git
