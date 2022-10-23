@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 
 import Input, { InputProps } from "ui/input";
+import { classNames } from "libraries/utils";
 
 export default function Form<
   T extends Readonly<({ name: string } & InputProps)[]>
@@ -8,7 +9,9 @@ export default function Form<
   fields,
   children,
   onSubmit,
+  className,
 }: {
+  className?: string;
   fields: T;
   children: ({
     onClick,
@@ -65,7 +68,7 @@ export default function Form<
   }
 
   return (
-    <div className="grid max-w-xl gap-2 p-4">
+    <div className={classNames("grid max-w-xl gap-2 p-4", className)}>
       <h1 className="text-2xl">Registro</h1>
       {fields.map(({ name, ...field }, index) => (
         <Input

@@ -27,7 +27,7 @@ export default function Register() {
   }
 
   return (
-    <Form fields={fields} onSubmit={handleSubmit}>
+    <Form fields={fields} onSubmit={handleSubmit} className="mx-auto">
       {({ onClick, loading }) => (
         <Button
           variant="filled"
