@@ -3,8 +3,13 @@ import Link from "next/link";
 import AppBar from "ui/app-bar";
 import Button from "ui/button";
 
-function Main({ children }: { children: React.ReactNode }) {
-  const buttons = (
+type Props = { withoutLogin?: boolean };
+
+function Main({
+  children,
+  withoutLogin,
+}: { children: React.ReactNode } & Props) {
+  const buttons = !withoutLogin && (
     <Link href="/login" passHref>
       <Button icon>login</Button>
     </Link>
@@ -22,6 +27,8 @@ function Main({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function getMainLayout(page: React.ReactNode) {
-  return <Main>{page}</Main>;
+export function getMainLayout(props?: Props) {
+  return function getMainLayout(page: React.ReactNode) {
+    return <Main {...props}>{page}</Main>;
+  };
 }
