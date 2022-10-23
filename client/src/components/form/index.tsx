@@ -10,11 +10,18 @@ export default function Form<
   onSubmit,
 }: {
   fields: T;
-  children: ({ onClick }: { onClick: () => void }) => React.ReactNode;
-  onSubmit: (props: Record<T[number]["name"], string>) => void;
+  children: ({
+    onClick,
+    loading,
+  }: {
+    onClick: () => void;
+    loading: boolean;
+  }) => React.ReactNode;
+  onSubmit: (props: Record<T[number]["name"], string>) => Promise<unknown>;
 }) {
   const elements = useRef<Record<string, HTMLInputElement>>({});
   const [values, setValues] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
 
   const handleRef = useCallback((target: HTMLInputElement) => {
     if (!target) return;
@@ -26,14 +33,17 @@ export default function Form<
     setValues((state) => ({ ...state, [target.name]: target.value }));
   }
 
-  function submit() {
+  async function submit() {
+    setLoading(true);
     try {
-      onSubmit(values);
+      const response = await onSubmit(values);
+      console.log(response);
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (typeof error === "string") {
+        console.log(error);
       }
     }
+    setLoading(false);
   }
 
   function handleKeyDown({
@@ -70,7 +80,7 @@ export default function Form<
         />
       ))}
 
-      {children({ onClick: submit })}
+      {children({ onClick: submit, loading })}
     </div>
   );
 }

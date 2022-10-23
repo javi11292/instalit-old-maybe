@@ -1,6 +1,7 @@
 import { getMainLayout } from "layouts/main";
 import Form from "components/form";
 import Button from "ui/button";
+import { post } from "libraries/fetch";
 
 const fields = [
   { name: "username", label: "Usuario" },
@@ -10,6 +11,7 @@ const fields = [
 
 export default function Register() {
   function handleSubmit({
+    username,
     password,
     confirmPassword,
   }: {
@@ -18,14 +20,21 @@ export default function Register() {
     confirmPassword: string;
   }) {
     if (password !== confirmPassword) {
-      throw new Error("Las contraseñas no coinciden");
+      throw "Las contraseñas no coinciden";
     }
+
+    return post("/user/register", { username, password });
   }
 
   return (
     <Form fields={fields} onSubmit={handleSubmit}>
-      {({ onClick }) => (
-        <Button variant="filled" onClick={onClick} className="mt-2 ml-auto">
+      {({ onClick, loading }) => (
+        <Button
+          variant="filled"
+          onClick={onClick}
+          className="mt-2 ml-auto"
+          loading={loading}
+        >
           Registrarse
         </Button>
       )}
