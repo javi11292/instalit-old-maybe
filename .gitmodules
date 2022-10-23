@@ -4,4 +4,3 @@
 [submodule "ui"]
 	path = client/src/ui
 	url = https://github.com/javi11292/ui.git
-
