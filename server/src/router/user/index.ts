@@ -1,9 +1,7 @@
 import express from "express";
 
-import { router as userRouter } from "./user";
-
 const router = express.Router();
 
-router.use("/user", userRouter);
+router.post("register", (req, res) => res.send("OK"));
 
 export { router };

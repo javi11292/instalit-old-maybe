@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "install": "npx concurrently \"cd client && cp -n .env.example .env && npm install\" \"cd server && cp -n .env.example .env && npm install\"",
+    "install": "cp -n .env.example .env && npx concurrently \"cd client && cp -n ../.env.example .env && npm install\" \"cd server && cp -n ../.env.example .env && npm install\"",
     "start": "npm run docker -- build --progress plain && npm run docker -- up -d",
     "dev": "npm run docker:dev -- build --progress plain && npm run docker:dev -- up",
     "docker": "docker-compose -f docker-compose.yml",
