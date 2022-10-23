@@ -17,6 +17,11 @@ export default class CustomDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
           />
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "1e741947f94e4566b2684d3950ae7726"}'
+          />
         </Head>
 
         <body>
