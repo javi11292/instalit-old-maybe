@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="es" className={font.variable}>
       <head>
         <title>Instalit</title>
+        <meta name="viewport" content="width=device-width" />
         <meta name="theme-color" content="#000000" />
         <meta name="description" content="Instalit" />
         <link rel="icon" href="/favicon.ico" />

@@ -1,0 +1,9 @@
+@use "ui/colors";
+
+.container {
+  width: 15rem;
+  height: 100%;
+  display: grid;
+  align-content: flex-start;
+  background: colors.$backgroundSecondaryDark;
+}

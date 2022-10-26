@@ -1,0 +1,7 @@
+@use "ui/colors";
+
+.divider {
+  margin: 0;
+  border: none;
+  border-bottom: 0.1rem solid colors.$backgroundSecondary;
+}

@@ -1,6 +1,6 @@
 [submodule "libraries"]
-	path = src/libraries
+	path = libraries
 	url = ../libraries.git
 [submodule "ui"]
-	path = src/ui
+	path = ui
 	url = ../ui.git

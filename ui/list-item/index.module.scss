@@ -1,0 +1,13 @@
+@use "ui/colors";
+@use "ui/utils";
+
+.container {
+  @include utils.hover();
+
+  padding: 1rem;
+}
+
+.active {
+  pointer-events: none;
+  background: colors.$secondary;
+}
