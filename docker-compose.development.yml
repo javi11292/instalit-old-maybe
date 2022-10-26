@@ -1,20 +1,12 @@
 version: "3.7"
 services:
-  client:
-    restart: unless-stopped
+  next:
     build:
-      dockerfile: ../dockerfile
-      context: client
       args:
         SKIP_BUILD: SKIP
     volumes:
-      - ./client/src:/app/src
-    entrypoint: npm run dev
-
-  server:
-    volumes:
-      - ./server/src:/app/src
-    entrypoint: npx concurrently "npm run build:dev" "npm run dev"
+      - ./src:/app/src
+    entrypoint: npm run next:dev
 
   nginx:
     logging:
@@ -23,4 +15,3 @@ services:
       - ./nginx.development.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
-      - 3000:3000

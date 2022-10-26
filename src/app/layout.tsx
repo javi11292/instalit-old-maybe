@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <title>Instalit</title>
         <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Client" />
+        <meta name="description" content="Instalit" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />

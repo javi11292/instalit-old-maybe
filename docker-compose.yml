@@ -1,14 +1,12 @@
 version: "3.7"
 services:
-  server:
+  next:
+    build: .
     restart: unless-stopped
-    build:
-      dockerfile: ../dockerfile
-      context: server
 
   nginx:
-    restart: unless-stopped
     image: nginx:alpine
+    restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./ssl:/etc/ssl
@@ -16,8 +14,8 @@ services:
       - 443:443
 
   mongodb:
-    restart: unless-stopped
     image: mongo
+    restart: unless-stopped
     logging:
       driver: none
     volumes:
@@ -27,8 +25,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
 
   mongo-express:
-    restart: unless-stopped
     image: mongo-express
+    restart: unless-stopped
     ports:
       - 8081:8081
     environment:
