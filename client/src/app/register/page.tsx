@@ -1,4 +1,3 @@
-import { getMainLayout } from "layouts/main";
 import Form from "components/form";
 import Button from "ui/button";
 import { post } from "libraries/fetch";
@@ -41,5 +40,3 @@ export default function Register() {
     </Form>
   );
 }
-
-Register.getLayout = getMainLayout();
