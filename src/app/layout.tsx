@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import AppBar from "ui/app-bar";
 import Button from "ui/button";
-import LoginButton from "components/login-button";
 
 import "./layout.css";
 
@@ -18,8 +17,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const buttons = <LoginButton />;
-
   return (
     <html lang="es" className={font.variable}>
       <head>
@@ -31,7 +28,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
-        <AppBar buttons={buttons}>
+        <AppBar>
           <Link href="/">
             <Button disableUpperCase>Instalit</Button>
           </Link>
