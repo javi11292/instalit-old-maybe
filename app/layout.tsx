@@ -3,11 +3,12 @@ import Link from "next/link";
 
 import AppBar from "commons/components/app-bar";
 import Button from "commons/components/button";
+import "commons/utils/worker";
 
 import "./layout.css";
 
 const font = localFont({
-  src: "../ui/fonts/material-icons.woff2",
+  src: "../src/commons/fonts/material-icons.woff2",
   display: "block",
   variable: "--material-icons",
 });
