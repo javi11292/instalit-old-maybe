@@ -4,6 +4,8 @@ const { GenerateSW } = require("workbox-webpack-plugin");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compress: false,
+  poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
     appDir: true,
