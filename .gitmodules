@@ -1,6 +1,3 @@
-[submodule "libraries"]
-	path = libraries
-	url = ../libraries.git
-[submodule "ui"]
-	path = ui
-	url = ../ui.git
+[submodule "commons"]
+	path = src/commons
+	url = ../commons.git

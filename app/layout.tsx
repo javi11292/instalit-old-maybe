@@ -1,8 +1,8 @@
 import localFont from "@next/font/local";
 import Link from "next/link";
 
-import AppBar from "ui/app-bar";
-import Button from "ui/button";
+import AppBar from "commons/components/app-bar";
+import Button from "commons/components/button";
 
 import "./layout.css";
 
