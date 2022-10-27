@@ -14,7 +14,6 @@ const nextConfig = {
 
     config.plugins.push(
       new GenerateSW({
-        clientsClaim: true,
         skipWaiting: true,
         include: [],
         swDest: `${__dirname}/public/sw.js`,
