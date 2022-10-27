@@ -1,5 +1,5 @@
 FROM node:alpine as build
-WORKDIR /app
+WORKDIR /next
 COPY package*.json ./
 RUN npm ci
 COPY . .
@@ -7,8 +7,8 @@ ARG SKIP_BUILD=""
 RUN if [ -z "$SKIP_BUILD" ] ; then npm run next:build ; fi
 
 FROM node:alpine
-WORKDIR /app
-COPY --from=build /app ./
+WORKDIR /next
+COPY --from=build /next ./
 
 EXPOSE 3000
 

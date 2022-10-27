@@ -5,7 +5,9 @@ services:
       args:
         SKIP_BUILD: SKIP
     volumes:
-      - ./src:/app/src
+      - ./app:/next/app
+      - ./pages:/next/src
+      - ./src:/next/src
     entrypoint: npm run next:dev
 
   nginx:
