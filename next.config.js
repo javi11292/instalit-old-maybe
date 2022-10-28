@@ -7,9 +7,6 @@ const nextConfig = {
   compress: false,
   poweredByHeader: false,
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
 
   webpack(config, { dev }) {
     if (dev) return config;
