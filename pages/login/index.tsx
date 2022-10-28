@@ -1,5 +1,3 @@
-"use client";
-
 import { post } from "commons/utils";
 import Form from "components/form";
 
