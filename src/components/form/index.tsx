@@ -90,7 +90,12 @@ export default function Form<
         )}
 
         {primaryButton && (
-          <Button variant="contained" onClick={submit} loading={loading}>
+          <Button
+            className="ml-auto"
+            variant="contained"
+            onClick={submit}
+            loading={loading}
+          >
             {primaryButton}
           </Button>
         )}

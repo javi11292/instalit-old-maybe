@@ -5,7 +5,6 @@ import Head from "next/head";
 
 import "commons/utils/worker";
 import Main from "components/main";
-
 import "./_app.css";
 
 const font = localFont({
