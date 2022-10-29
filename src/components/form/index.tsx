@@ -71,7 +71,7 @@ export default function Form<
       <h1 className="text-2xl">{title}</h1>
       {fields.map(({ name, ...field }, index) => (
         <Input
-          ref={handleRef}
+          inputRef={handleRef}
           data-index={index}
           key={name}
           name={name}
