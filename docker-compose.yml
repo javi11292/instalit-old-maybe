@@ -16,8 +16,6 @@ services:
   mongodb:
     image: mongo
     restart: unless-stopped
-    logging:
-      driver: none
     volumes:
       - mongodb:/data/db
     environment:

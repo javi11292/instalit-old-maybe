@@ -10,8 +10,6 @@ services:
     entrypoint: npm run next:dev
 
   nginx:
-    logging:
-      driver: none
     volumes:
       - ./nginx.development.conf:/etc/nginx/nginx.conf
     ports:
