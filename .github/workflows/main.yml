@@ -9,5 +9,5 @@ jobs:
   deploy: 
      runs-on: self-hosted
      steps:
-      - uses: actions/checkout@v2.5
+      - uses: actions/checkout@v2.5.0
       - run: npm start
