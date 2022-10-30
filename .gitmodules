@@ -1,3 +1,3 @@
 [submodule "commons"]
 	path = src/commons
-	url = ../commons.git
+	url = https://github.com/javi11292/commons.git
