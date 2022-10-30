@@ -12,5 +12,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.TOKEN }}
+          clean: false
           submodules: recursive
       - run: npm start
