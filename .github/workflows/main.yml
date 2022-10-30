@@ -1,3 +1,5 @@
+name: Deploy
+
 on:
   push:
     branches:
@@ -7,4 +9,5 @@ jobs:
   deploy: 
      runs-on: self-hosted
      steps:
+      - uses: actions/checkout@v2.5
       - run: npm start
