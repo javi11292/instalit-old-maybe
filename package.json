@@ -3,7 +3,7 @@
     "copy": "cp -n .env.example .env",
     "start": "npm run docker -- build --progress plain && npm run docker -- up -d",
     "dev": "npm run docker:dev -- build --progress plain && npm run docker:dev -- up",
-    "docker": "docker compose -f docker-compose.yml -f docker-compose.pro.yml --profile database",
+    "docker": "docker compose -f docker-compose.yml -f docker-compose.pro.yml --profile pro",
     "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml -p instalit-dev",
     "next:start": "next start",
     "next:dev": "next dev",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@next/font": "^13.0.0",
+    "iron-session": "^6.3.1",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
     "mongodb": "^4.11.0",

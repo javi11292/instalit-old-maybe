@@ -1,4 +1,4 @@
-import { post } from "commons/utils";
+import { post } from "commons/utils/fetch";
 import Form from "components/form";
 
 const fields = [
