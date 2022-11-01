@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 
 import Button, { ButtonProps } from "commons/components/button";
 import Input, { InputProps } from "commons/components/input";
+import { addMessage } from "commons/components/snackbar";
 import { classNames } from "commons/utils";
 
 export default function Form<
@@ -40,10 +41,11 @@ export default function Form<
   async function submit() {
     setLoading(true);
     try {
-      const response = await onSubmit(values);
-      console.log(response);
+      await onSubmit(values);
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        addMessage({ text: error.message, type: "error" });
+      }
     }
     setLoading(false);
   }

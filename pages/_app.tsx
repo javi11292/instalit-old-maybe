@@ -1,8 +1,8 @@
 import localFont from "@next/font/local";
-import { NextComponentType } from "next";
 import { AppProps } from "next/app";
 import Head from "next/head";
 
+import Snackbar from "commons/components/snackbar";
 import "commons/utils/worker";
 import Main from "components/main";
 import "./_app.css";
@@ -13,14 +13,7 @@ const font = localFont({
   variable: "--material-icons",
 });
 
-export default function App({
-  Component,
-  pageProps,
-}: AppProps & {
-  Component: NextComponentType & {
-    Layout: ({ children }: { children: React.ReactNode }) => JSX.Element;
-  };
-}) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
@@ -30,6 +23,7 @@ export default function App({
       <div className={font.variable}>
         <Main>
           <Component {...pageProps} />
+          <Snackbar />
         </Main>
       </div>
     </>

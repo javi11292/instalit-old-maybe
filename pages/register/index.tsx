@@ -18,7 +18,7 @@ export default function Register() {
     confirmPassword: string;
   }) {
     if (password !== confirmPassword) {
-      throw "Las contraseñas no coinciden";
+      throw new Error("Las contraseñas no coinciden");
     }
 
     return post("/user/register", { username, password });
