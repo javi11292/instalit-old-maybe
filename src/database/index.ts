@@ -9,4 +9,4 @@ const client = new MongoClient(URL, {
   },
 });
 
-export default client.db("database");
+export const database = client.db("database");
