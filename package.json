@@ -3,7 +3,7 @@
     "copy": "cp -n .env.example .env",
     "start": "npm run docker -- build --progress plain && npm run docker -- up -d",
     "dev": "npm run docker:dev -- build --progress plain && npm run docker:dev -- up",
-    "docker": "docker compose -f docker-compose.yml -f docker-compose.pro.yml --profile pro",
+    "docker": "docker compose -f docker-compose.yml -f docker-compose.pro.yml",
     "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml -p instalit-dev",
     "next:start": "next start",
     "next:dev": "next dev",
