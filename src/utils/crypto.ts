@@ -23,7 +23,7 @@ export async function hashPassword(password: string) {
   return buffer.toString("hex");
 }
 
-export async function compareHash(password: string, hash: string) {
+export async function matchPassword(password: string, hash: string) {
   const buffer = Buffer.from(hash, "hex");
   const salt = buffer.subarray(0, SALT_LENGTH);
   const keyA = buffer.subarray(SALT_LENGTH);

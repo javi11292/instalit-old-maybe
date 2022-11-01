@@ -1,17 +1,17 @@
 import { database } from "database";
 import { hashPassword } from "utils/crypto";
 
-const collection = database.collection("users");
+type User = {
+  username: string;
+  password: string;
+};
+
+const collection = database.collection<User>("users");
 
 collection.createIndex({ username: 1 }, { unique: true });
 
-export async function getUser(username: string) {
-  const user = await collection.findOne(
-    { username },
-    { projection: { _id: 0 } }
-  );
-
-  return user;
+export function getUser(username: string) {
+  return collection.findOne({ username });
 }
 
 export async function addUser(username: string, password: string) {
@@ -20,7 +20,7 @@ export async function addUser(username: string, password: string) {
     password: await hashPassword(password),
   };
 
-  await collection.insertOne(user);
+  const { insertedId } = await collection.insertOne(user);
 
-  return user;
+  return { _id: insertedId };
 }

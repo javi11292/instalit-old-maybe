@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { DetailError } from "commons/utils/error";
-import { addUser } from "database/user";
+import { getUser } from "database/user";
+import { matchPassword } from "utils/crypto";
 import { errors, handleError } from "utils/error";
 import { withSessionRoute } from "utils/session";
 
-async function register(req: NextApiRequest, res: NextApiResponse) {
+async function login(req: NextApiRequest, res: NextApiResponse) {
   const { username, password } = req.body;
 
   try {
@@ -17,9 +18,13 @@ async function register(req: NextApiRequest, res: NextApiResponse) {
       throw new DetailError({ code: errors.EMPTY_PASSWORD });
     }
 
-    const { _id } = await addUser(username, password);
+    const user = await getUser(username);
 
-    req.session.id = _id.toString();
+    if (!user || !(await matchPassword(password, user.password))) {
+      throw new DetailError({ code: errors.INCORRECT_CREDENTIALS });
+    }
+
+    req.session.id = user._id.toString();
     await req.session.save();
 
     res.end();
@@ -28,4 +33,4 @@ async function register(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withSessionRoute(register);
+export default withSessionRoute(login);

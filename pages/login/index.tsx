@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import { post } from "commons/utils/fetch";
 import Form from "components/form";
 
@@ -7,14 +9,17 @@ const fields = [
 ] as const;
 
 export default function Login() {
-  function handleSubmit({
+  const router = useRouter();
+
+  async function handleSubmit({
     username,
     password,
   }: {
     username: string;
     password: string;
   }) {
-    return post("/user/login", { username, password });
+    await post("/user/login", { username, password });
+    router.push("/");
   }
 
   return (
