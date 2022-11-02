@@ -3,7 +3,7 @@ services:
   nginx:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./ssl:/etc/ssl
+      - ${SSL}:/etc/ssl
     ports:
       - 443:443
 

@@ -5,8 +5,7 @@
     "dev": "npm run docker:dev -- build --progress plain && npm run docker:dev -- up",
     "docker": "docker compose -f docker-compose.yml -f docker-compose.pro.yml",
     "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml -p instalit-dev",
-    "build": "next build",
-    "set-env": "cp .env ../actions-runner/_work/instalit/instalit/.env"
+    "build": "next build"
   },
   "dependencies": {
     "@next/font": "^13.0.0",
