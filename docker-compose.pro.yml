@@ -6,7 +6,3 @@ services:
       - ${SSL}:/etc/ssl
     ports:
       - 443:443
-
-  mongo-express:
-    ports:
-      - 8081:8081

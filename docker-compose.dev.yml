@@ -14,7 +14,3 @@ services:
       - ./nginx.dev.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
-
-  mongo-express:
-    ports:
-      - 8080:8081
