@@ -13,6 +13,5 @@ jobs:
         with:
           token: ${{ secrets.TOKEN }}
           submodules: recursive
-      - run: echo $ENV
-      - run: cp $ENV .env
+      - run: env
       - run: docker compose -f docker-compose.yml -f docker-compose.pro.yml up -d
