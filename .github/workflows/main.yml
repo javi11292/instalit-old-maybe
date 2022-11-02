@@ -14,4 +14,4 @@ jobs:
           token: ${{ secrets.TOKEN }}
           submodules: recursive
       - run: cp /home/ubuntu/.env .env
-      - run: docker compose -f docker-compose.yml -f docker-compose.pro.yml up -d
+      - run: docker compose -f docker-compose.yml -f docker-compose.pro.yml up --build -d
