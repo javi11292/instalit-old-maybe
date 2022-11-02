@@ -1,7 +1,6 @@
-import router from "next/router";
-
 import { post } from "commons/utils/fetch";
 import Form from "components/form";
+import { store } from "store";
 
 const fields = [
   { name: "username", label: "Usuario" },
@@ -16,8 +15,8 @@ export default function Login() {
     username: string;
     password: string;
   }) {
-    await post("/api/user/login", { username, password });
-    router.push("/");
+    const session = await post("/api/user/login", { username, password });
+    store.setSession(session);
   }
 
   return (

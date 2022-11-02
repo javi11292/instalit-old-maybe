@@ -27,7 +27,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
     req.session.id = user._id.toString();
     await req.session.save();
 
-    res.end();
+    res.send(req.session);
   } catch (error) {
     handleError(error, res);
   }
