@@ -7,7 +7,7 @@ services:
     volumes:
       - ./pages:/next/pages
       - ./src:/next/src
-    entrypoint: npm run next:dev
+    entrypoint: node_modules/.bin/next dev
 
   nginx:
     volumes:

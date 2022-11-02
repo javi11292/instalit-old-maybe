@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import router from "next/router";
 
 import { post } from "commons/utils/fetch";
 import Form from "components/form";
@@ -10,8 +10,6 @@ const fields = [
 ] as const;
 
 export default function Register() {
-  const router = useRouter();
-
   async function handleSubmit({
     username,
     password,
@@ -25,7 +23,7 @@ export default function Register() {
       throw new Error("Las contraseñas no coinciden");
     }
 
-    await post("/user/register", { username, password });
+    await post("/api/user/register", { username, password });
     router.push("/");
   }
 
