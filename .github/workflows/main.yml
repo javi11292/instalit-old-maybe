@@ -14,4 +14,4 @@ jobs:
           token: ${{ secrets.TOKEN }}
           clean: false
           submodules: recursive
-      - run: npm start
+      - run: docker compose -f docker-compose.yml -f docker-compose.pro.yml up -d
