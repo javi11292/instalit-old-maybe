@@ -63,21 +63,17 @@ function Main({ children }: { children: React.ReactNode }) {
       </Button>
     ) : (
       <>
-        <Button
-          label={
-            <input
-              type="file"
-              value=""
-              hidden
-              multiple
-              accept="image/*"
-              onChange={handleChange}
-            />
-          }
-          icon
-        >
-          upload
-        </Button>
+        <label className="contents">
+          <input
+            type="file"
+            value=""
+            hidden
+            multiple
+            accept="image/*"
+            onChange={handleChange}
+          />
+          <Button icon>upload</Button>
+        </label>
         <Logout />
       </>
     );
