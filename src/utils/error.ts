@@ -23,6 +23,7 @@ export function handleError(error: unknown, res: NextApiResponse) {
         res.send({ error: "Error en la base de datos" });
       }
     }
+
     return;
   }
 
@@ -43,6 +44,8 @@ export function handleError(error: unknown, res: NextApiResponse) {
         break;
       }
     }
+
+    return;
   }
 
   res.send({ error: "Error desconocido" });
