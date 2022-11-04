@@ -13,7 +13,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   webpack(config, { dev }) {
-    if (dev) return config;
+    if (dev || process.env.ANALYZE) return config;
 
     config.plugins.push(
       new GenerateSW({
