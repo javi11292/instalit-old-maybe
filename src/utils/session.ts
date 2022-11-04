@@ -1,9 +1,5 @@
-import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
-import type {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextApiHandler,
-} from "next";
+import { withIronSessionApiRoute } from "iron-session/next";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 export const options = {
   cookieName: "instalit",
@@ -17,10 +13,16 @@ export function withSessionRoute(handler: NextApiHandler) {
   return withIronSessionApiRoute(handler, options);
 }
 
-export function withSessionSSR<P extends { [key: string]: unknown }>(
-  handler: (
-    context: GetServerSidePropsContext
-  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
-) {
-  return withIronSessionSsr(handler, options);
+export function withProtectedRoute(handler: NextApiHandler) {
+  function protectedRoute(req: NextApiRequest, res: NextApiResponse) {
+    if (!req.session.id) {
+      res.status(401);
+      res.end();
+      return;
+    }
+
+    handler(req, res);
+  }
+
+  return withIronSessionApiRoute(protectedRoute, options);
 }

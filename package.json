@@ -8,7 +8,9 @@
     "build": "next build"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.0.2",
     "@next/font": "^13.0.0",
+    "busboy": "^1.6.0",
     "iron-session": "^6.3.1",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
@@ -20,6 +22,7 @@
     "workbox-webpack-plugin": "^6.5.4"
   },
   "devDependencies": {
+    "@types/busboy": "^1.5.0",
     "@types/node": "^18.11.3",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",

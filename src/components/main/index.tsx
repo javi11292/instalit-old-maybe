@@ -6,11 +6,12 @@ import useSWR from "swr";
 
 import AppBar from "commons/components/app-bar";
 import Button from "commons/components/button";
-import { get, useFetch } from "commons/utils/fetch";
+import { useLoading } from "commons/hooks";
+import { get, upload } from "commons/utils/fetch";
 import { store } from "store";
 
 function Logout() {
-  const { loading, trigger } = useFetch(() => get("/api/user/logout"));
+  const { loading, trigger } = useLoading(() => get("/api/user/logout"));
 
   async function handleClick() {
     await trigger();
@@ -28,6 +29,18 @@ function Main({ children }: { children: React.ReactNode }) {
   const { data } = useSWR("/api/user/session");
 
   const { session } = store;
+
+  async function handleChange({
+    currentTarget,
+  }: React.ChangeEvent<HTMLInputElement>) {
+    if (currentTarget.files) {
+      const files = await upload("/api/file/upload", {
+        files: currentTarget.files,
+      });
+
+      console.log(files);
+    }
+  }
 
   useEffect(() => {
     store.setSession(data);
@@ -49,7 +62,24 @@ function Main({ children }: { children: React.ReactNode }) {
         login
       </Button>
     ) : (
-      <Logout />
+      <>
+        <Button
+          label={
+            <input
+              type="file"
+              value=""
+              hidden
+              multiple
+              accept="image/*"
+              onChange={handleChange}
+            />
+          }
+          icon
+        >
+          upload
+        </Button>
+        <Logout />
+      </>
     );
 
   return (

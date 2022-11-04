@@ -2,8 +2,9 @@ import { useCallback, useRef, useState } from "react";
 
 import Button, { ButtonProps } from "commons/components/button";
 import Input, { InputProps } from "commons/components/input";
-import { addMessage } from "commons/components/snackbar";
+import { useLoading } from "commons/hooks";
 import { classNames } from "commons/utils";
+import { useErrorMessage } from "hooks/error-message";
 
 export default function Form<
   T extends Readonly<({ name: string } & InputProps)[]>
@@ -26,7 +27,8 @@ export default function Form<
 }) {
   const elements = useRef<Record<string, HTMLInputElement>>({});
   const [values, setValues] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
+  const { trigger, loading } = useLoading(onSubmit);
+  const errorMessage = useErrorMessage();
 
   const handleRef = useCallback((target: HTMLInputElement) => {
     if (!target) return;
@@ -38,16 +40,8 @@ export default function Form<
     setValues((state) => ({ ...state, [target.name]: target.value }));
   }
 
-  async function submit() {
-    setLoading(true);
-    try {
-      await onSubmit(values);
-    } catch (error) {
-      if (error instanceof Error) {
-        addMessage({ text: error.message, type: "error" });
-      }
-    }
-    setLoading(false);
+  function submit() {
+    errorMessage(() => trigger(values));
   }
 
   function handleKeyDown({
