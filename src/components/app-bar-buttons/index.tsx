@@ -3,25 +3,23 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 
 import Button from "commons/components/button";
-import { post } from "commons/utils/fetch";
+import { post, upload } from "commons/utils/fetch";
 import Logout from "./logout";
 
 export default function AppBarButtons() {
   const router = useRouter();
   const { data: session } = useSWR("/api/user", post);
+  const { trigger, isMutating } = useSWRMutation("/api/file/upload", upload);
 
   const handleChange = async ({
     currentTarget,
   }: React.ChangeEvent<HTMLInputElement>) => {
-    /* if (currentTarget.files) {
-      const files = await upload("/api/file/upload", {
-        files: currentTarget.files,
-      });
-
-      console.log(files);
-    } */
+    if (currentTarget.files) {
+      trigger({ files: currentTarget.files });
+    }
   };
 
   useEffect(() => {
@@ -48,7 +46,9 @@ export default function AppBarButtons() {
           accept="image/*"
           onChange={handleChange}
         />
-        <Button icon>upload</Button>
+        <Button icon loading={isMutating}>
+          upload
+        </Button>
       </label>
       <Logout />
     </>

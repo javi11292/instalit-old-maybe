@@ -1,28 +1,29 @@
-/* import busboy from "busboy";
-import type { NextApiRequest, NextApiResponse } from "next";
+import busboy from "busboy";
+import type { NextRequest } from "next/server";
+import { Readable } from "node:stream";
+import { ReadableStream } from "stream/web";
 
+import { upload } from "server/database/file";
 import { withProtectedRoute } from "server/utils/session";
 
-async function upload(req: NextApiRequest, res: NextApiResponse) {
-  const bb = busboy({ headers: req.headers });
+const readFile = (req: NextRequest) => {
+  return new Promise<Response>((resolve) => {
+    const bb = busboy({
+      headers: { "content-type": req.headers.get("content-type") || undefined },
+    });
 
-  bb.on("file", (name, file, info) => {
-    console.log("file");
+    bb.on("file", (_, file, info) => {
+      upload(info.filename, file);
+    });
+
+    bb.on("close", () => {
+      resolve(new Response());
+    });
+
+    Readable.fromWeb(req.body as ReadableStream).pipe(bb);
   });
+};
 
-  bb.on("close", () => {
-    res.end();
-  });
-
-  req.pipe(bb);
-}
-
-export default withProtectedRoute(upload);
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}; */
-
-export const GET = () => null;
+export const POST = withProtectedRoute(async (req: NextRequest) => {
+  return await readFile(req);
+});
