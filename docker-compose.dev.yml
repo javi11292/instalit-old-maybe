@@ -5,7 +5,6 @@ services:
       args:
         SKIP_BUILD: SKIP
     volumes:
-      - ./pages:/next/pages
       - ./src:/next/src
     entrypoint: node_modules/.bin/next dev
 

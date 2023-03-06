@@ -1,10 +1,13 @@
+"use client";
+
 import { useCallback, useRef, useState } from "react";
+import useSWRMutation from "swr/mutation";
 
 import Button, { ButtonProps } from "commons/components/button";
 import Input, { InputProps } from "commons/components/input";
-import { useLoading } from "commons/hooks";
 import { classNames } from "commons/utils";
-import { useErrorMessage } from "hooks/error-message";
+import { post } from "commons/utils/fetch";
+import { withErrorMessage } from "utils/error-message";
 
 export default function Form<
   T extends Readonly<({ name: string } & InputProps)[]>
@@ -14,21 +17,25 @@ export default function Form<
   secondaryButton,
   secondaryButtonProps,
   onSubmit,
+  api,
   className,
   title,
 }: {
   title?: string;
   className?: string;
   fields: T;
+  api: string;
   primaryButton?: React.ReactNode;
   secondaryButton?: React.ReactNode;
   secondaryButtonProps?: Omit<ButtonProps, "children">;
-  onSubmit: (props: Record<T[number]["name"], string>) => Promise<unknown>;
+  onSubmit?: (
+    trigger: () => Promise<unknown>,
+    props: Record<T[number]["name"], string>
+  ) => void;
 }) {
   const elements = useRef<Record<string, HTMLInputElement>>({});
   const [values, setValues] = useState<Record<string, string>>({});
-  const { trigger, loading } = useLoading(onSubmit);
-  const errorMessage = useErrorMessage();
+  const { trigger, isMutating } = useSWRMutation(api, post);
 
   const handleRef = useCallback((target: HTMLInputElement) => {
     if (!target) return;
@@ -36,18 +43,22 @@ export default function Form<
     elements.current[target.name] = target;
   }, []);
 
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setValues((state) => ({ ...state, [target.name]: target.value }));
-  }
+  };
 
-  function submit() {
-    errorMessage(() => trigger(values));
-  }
+  const submit = () => {
+    withErrorMessage(() => {
+      return onSubmit
+        ? onSubmit(() => trigger(values), values)
+        : trigger(values);
+    });
+  };
 
-  function handleKeyDown({
+  const handleKeyDown = ({
     key,
     currentTarget,
-  }: React.KeyboardEvent<HTMLInputElement>) {
+  }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === "Enter") {
       const element =
         elements.current[
@@ -60,7 +71,7 @@ export default function Form<
         submit();
       }
     }
-  }
+  };
 
   return (
     <div className={classNames("grid max-w-xl gap-2 p-4", className)}>
@@ -90,7 +101,7 @@ export default function Form<
             className="ml-auto"
             variant="contained"
             onClick={submit}
-            loading={loading}
+            loading={isMutating}
           >
             {primaryButton}
           </Button>

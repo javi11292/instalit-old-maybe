@@ -1,5 +1,5 @@
-import { database } from "database";
-import { hashPassword } from "utils/crypto";
+import { hashPassword } from "server/utils/crypto";
+import { database } from ".";
 
 type User = {
   username: string;
@@ -10,11 +10,11 @@ const collection = database.collection<User>("users");
 
 collection.createIndex({ username: 1 }, { unique: true });
 
-export function getUser(username: string) {
+export const getUser = (username: string) => {
   return collection.findOne({ username });
-}
+};
 
-export async function addUser(username: string, password: string) {
+export const addUser = async (username: string, password: string) => {
   const user = {
     username,
     password: await hashPassword(password),
@@ -23,4 +23,4 @@ export async function addUser(username: string, password: string) {
   const { insertedId } = await collection.insertOne(user);
 
   return { _id: insertedId };
-}
+};

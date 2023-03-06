@@ -1,7 +1,9 @@
-import "iron-session";
+import "next/server";
 
-declare module "iron-session" {
-  interface IronSessionData {
-    id: string;
+declare module "next/server" {
+  declare class NextRequest {
+    session: Session;
   }
+
+  declare type Session = { id?: string };
 }
