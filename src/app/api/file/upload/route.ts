@@ -13,7 +13,7 @@ const readFile = (req: NextRequest) => {
     });
 
     bb.on("file", (_, file, info) => {
-      upload(info.filename, file);
+      upload({ file, name: info.filename, user_id: req.session.id as string });
     });
 
     bb.on("close", () => {
