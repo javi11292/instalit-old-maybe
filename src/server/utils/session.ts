@@ -1,15 +1,21 @@
 import { sign, verify } from "jsonwebtoken";
-import { NextRequest, NextResponse, Session } from "next/server";
+import { cookies } from "next/headers";
+import {
+  NextRequest,
+  NextResponse,
+  Session,
+  SessionRequest,
+} from "next/server";
 
-type Handler = (
-  req: NextRequest
+type Handler<T = NextRequest> = (
+  req: T
 ) => Promise<Response | NextResponse> | Response | NextResponse;
 
 const secret = process.env.SESSION_SECRET || "";
 
 export const setSessionToken = (
   response: NextResponse,
-  payload: Record<string, unknown>
+  payload: Record<string, string>
 ) => {
   response.cookies.set("session", sign(payload, secret), {
     httpOnly: true,
@@ -18,29 +24,28 @@ export const setSessionToken = (
   });
 };
 
-export const addSessionToken = (req: NextRequest) => {
-  const token = req.cookies.get("session");
-
-  if (token) {
-    req.session = verify(token.value, secret) as Session;
-  }
+export const getSessionToken = () => {
+  const token = cookies().get("session");
+  return token && (verify(token.value, secret) as Session);
 };
 
 export const withSession = (handler: Handler) => {
   return async (req: NextRequest) => {
-    addSessionToken(req);
+    req.session = getSessionToken();
 
     return handler(req);
   };
 };
 
-export const withProtectedRoute = (handler: Handler) => {
-  return async (req: NextRequest) => {
-    addSessionToken(req);
+export const withProtectedRoute = (handler: Handler<SessionRequest>) => {
+  return async (req: SessionRequest) => {
+    const session = getSessionToken();
 
-    if (!req.session.id) {
+    if (!session) {
       return new Response(null, { status: 401 });
     }
+
+    req.session = session;
 
     return handler(req);
   };

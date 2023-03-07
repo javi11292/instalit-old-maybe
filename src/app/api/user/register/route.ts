@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
     const { _id } = await addUser(username, password);
 
     const response = new NextResponse();
-    setSessionToken(response, { id: _id.toString() });
+    setSessionToken(response, { id: _id });
 
     return response;
   } catch (error) {

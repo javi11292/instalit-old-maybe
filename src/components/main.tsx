@@ -9,6 +9,7 @@ import "commons/utils/worker";
 const config = {
   fetcher: send,
   revalidateOnFocus: false,
+  shouldRetryOnError: false,
 };
 
 export default function Main({ children }: { children: React.ReactNode }) {

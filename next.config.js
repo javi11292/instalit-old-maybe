@@ -14,6 +14,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    unoptimized: true,
+  },
 
   webpack(config, { dev }) {
     if (dev || process.env.ANALYZE) return config;

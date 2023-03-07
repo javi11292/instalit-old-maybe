@@ -22,5 +22,5 @@ export const addUser = async (username: string, password: string) => {
 
   const { insertedId } = await collection.insertOne(user);
 
-  return { _id: insertedId };
+  return { _id: insertedId.toString() };
 };

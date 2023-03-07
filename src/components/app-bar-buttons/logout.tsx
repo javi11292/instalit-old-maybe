@@ -1,4 +1,3 @@
-import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
 import Button from "commons/components/button";
@@ -9,7 +8,7 @@ export default function Logout() {
 
   const handleClick = async () => {
     await trigger();
-    mutate("/api/user");
+    location.reload();
   };
 
   return (
