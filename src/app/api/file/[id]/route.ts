@@ -1,5 +1,5 @@
-import { getFile } from "server/database/file";
+import { download } from "server/database/file";
 
 export const GET = (_: unknown, { params }: { params: { id: string } }) => {
-  return new Response(getFile(params.id));
+  return new Response(download(params.id));
 };

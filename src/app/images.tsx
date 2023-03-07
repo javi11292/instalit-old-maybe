@@ -1,7 +1,6 @@
 "use client";
 
 import type { Document } from "mongodb";
-import Image from "next/image";
 import useSWR from "swr";
 
 export default function Images({ images }: { images: Document[] | undefined }) {
@@ -12,15 +11,13 @@ export default function Images({ images }: { images: Document[] | undefined }) {
   if (!files || error) return null;
 
   return (
-    <div className="grid grid-cols-5 gap-1">
+    <div className="grid grid-cols-4 gap-1">
       {files.map((file) => (
         <div key={file._id} className="relative aspect-square">
-          <Image
-            priority
-            fill
-            src={`/api/file/${file._id}`}
+          <img
+            src={`/api/file/${file._id}/thumbnail`}
             alt={file.filename}
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
       ))}

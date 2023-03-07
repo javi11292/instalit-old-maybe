@@ -8,7 +8,8 @@ import {
 } from "next/server";
 
 type Handler<T = NextRequest> = (
-  req: T
+  req: T,
+  args: { params: Record<string, string> }
 ) => Promise<Response | NextResponse> | Response | NextResponse;
 
 const secret = process.env.SESSION_SECRET || "";
@@ -30,15 +31,18 @@ export const getSessionToken = () => {
 };
 
 export const withSession = (handler: Handler) => {
-  return async (req: NextRequest) => {
+  return async (req: NextRequest, args: { params: Record<string, string> }) => {
     req.session = getSessionToken();
 
-    return handler(req);
+    return handler(req, args);
   };
 };
 
 export const withProtectedRoute = (handler: Handler<SessionRequest>) => {
-  return async (req: SessionRequest) => {
+  return async (
+    req: SessionRequest,
+    args: { params: Record<string, string> }
+  ) => {
     const session = getSessionToken();
 
     if (!session) {
@@ -47,6 +51,6 @@ export const withProtectedRoute = (handler: Handler<SessionRequest>) => {
 
     req.session = session;
 
-    return handler(req);
+    return handler(req, args);
   };
 };

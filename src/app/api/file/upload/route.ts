@@ -1,13 +1,13 @@
 import busboy from "busboy";
 import type { Document } from "mongodb";
-import { NextResponse, SessionRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { Readable } from "node:stream";
 import { ReadableStream } from "stream/web";
 
 import { upload } from "server/database/file";
 import { withProtectedRoute } from "server/utils/session";
 
-export const POST = withProtectedRoute(async (req: SessionRequest) => {
+export const POST = withProtectedRoute(async (req) => {
   return new Promise<Response>((resolve) => {
     const files: Document[] = [];
 
@@ -19,8 +19,8 @@ export const POST = withProtectedRoute(async (req: SessionRequest) => {
       files.push(upload({ file, name: info.filename, userId: req.session.id }));
     });
 
-    bb.on("close", () => {
-      resolve(NextResponse.json(files));
+    bb.on("close", async () => {
+      resolve(NextResponse.json(await Promise.all(files)));
     });
 
     Readable.fromWeb(req.body as ReadableStream).pipe(bb);
