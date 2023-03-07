@@ -1,10 +1,10 @@
 import { getFiles } from "server/database/file";
 import { getSessionToken } from "server/utils/session";
-import Images from "./images";
+import Photos from "./photos";
 
 export default async function Home() {
   const session = getSessionToken();
-  const images = session && (await getFiles(session.id));
+  const files = session && (await getFiles(session.id));
 
-  return <Images images={images} />;
+  return <Photos files={files} />;
 }

@@ -1,8 +1,6 @@
 "use client";
 
 import type { Document } from "mongodb";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import useSWR, { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
@@ -11,7 +9,6 @@ import { post, upload } from "commons/utils/fetch";
 import Logout from "./logout";
 
 export default function AppBarButtons() {
-  const router = useRouter();
   const { data: session } = useSWR("/api/user", post);
   const { trigger, isMutating } = useSWRMutation("/api/file/upload", upload);
 
@@ -20,6 +17,7 @@ export default function AppBarButtons() {
   }: React.ChangeEvent<HTMLInputElement>) => {
     if (currentTarget.files) {
       const newFiles = await trigger({ files: currentTarget.files });
+
       mutate<Document[]>(
         "/api/file/all",
         (files = []) => [...files, ...newFiles],
@@ -27,12 +25,6 @@ export default function AppBarButtons() {
       );
     }
   };
-
-  useEffect(() => {
-    if (session === undefined) return;
-
-    router.push(session ? "/" : "/login");
-  }, [session, router]);
 
   if (session === undefined) return null;
 

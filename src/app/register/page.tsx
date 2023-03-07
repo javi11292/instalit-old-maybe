@@ -3,6 +3,7 @@
 import { mutate } from "swr";
 
 import Form from "components/form";
+import { useSession } from "hooks/session";
 
 const fields = [
   { name: "username", label: "Usuario" },
@@ -11,6 +12,8 @@ const fields = [
 ] as const;
 
 export default function Register() {
+  useSession();
+
   const handleSubmit = async (
     trigger: () => Promise<unknown>,
     {

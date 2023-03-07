@@ -25,14 +25,14 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <link rel="manifest" href="/manifest.json" />
       </head>
 
-      <body>
+      <body className="flex flex-col">
         <Main>
           <AppBar buttons={<AppBarButtons />}>
             <Button href="/" disableUpperCase>
               Instalit
             </Button>
           </AppBar>
-          {children}
+          <div className="flex-1 overflow-hidden">{children}</div>
         </Main>
       </body>
     </html>
