@@ -5,11 +5,11 @@ import useSWR, { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
 import Button from "commons/components/button";
-import { post, upload } from "commons/utils/fetch";
+import { upload } from "commons/utils/fetch";
 import Logout from "./logout";
 
 export default function AppBarButtons() {
-  const { data: session } = useSWR("/api/user", post);
+  const { data: session } = useSWR("/api/user");
   const { trigger, isMutating } = useSWRMutation("/api/file/upload", upload);
 
   const handleChange = async ({
@@ -18,11 +18,9 @@ export default function AppBarButtons() {
     if (currentTarget.files) {
       const newFiles = await trigger({ files: currentTarget.files });
 
-      mutate<Document[]>(
-        "/api/file/all",
-        (files = []) => [...files, ...newFiles],
-        { revalidate: false }
-      );
+      mutate<Document[]>("/api/file", (files = []) => [...files, ...newFiles], {
+        revalidate: false,
+      });
     }
   };
 

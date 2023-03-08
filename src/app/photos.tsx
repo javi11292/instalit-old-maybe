@@ -5,7 +5,7 @@ import Link from "next/link";
 import useSWR from "swr";
 
 export default function Photos({ files }: { files: Document[] | undefined }) {
-  const { data, error } = useSWR<Document[]>("/api/file/all", {
+  const { data, error } = useSWR<Document[]>("/api/file", {
     fallbackData: files,
   });
 

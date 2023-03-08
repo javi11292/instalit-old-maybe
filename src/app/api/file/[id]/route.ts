@@ -1,3 +1,4 @@
+import { CACHE_CONTROL_PUBLIC } from "server/constants/headers";
 import { download } from "server/database/file";
 
 export const GET = async (
@@ -6,7 +7,7 @@ export const GET = async (
 ) => {
   try {
     return new Response(await download(params.id), {
-      headers: { "Cache-Control": "public, max-age=31536000, immutable" },
+      headers: CACHE_CONTROL_PUBLIC,
     });
   } catch {
     return new Response(null, { status: 404 });
