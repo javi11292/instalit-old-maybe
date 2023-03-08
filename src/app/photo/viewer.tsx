@@ -8,10 +8,17 @@ export default function Viewer() {
   const id = searchParams.get("id") || "";
 
   return (
-    <img
-      src={`/api/file/${id}`}
-      alt={id}
-      className="max-h-full w-full object-contain"
-    />
+    <div className="relative flex-1">
+      <img
+        src={`/api/file/${id}/thumbnail`}
+        alt={id}
+        className="absolute max-h-full w-full animate-appear object-contain"
+      />
+      <img
+        src={`/api/file/${id}`}
+        alt={id}
+        className="absolute max-h-full w-full animate-appear object-contain"
+      />
+    </div>
   );
 }

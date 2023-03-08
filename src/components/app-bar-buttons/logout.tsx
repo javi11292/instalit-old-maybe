@@ -12,7 +12,12 @@ export default function Logout() {
   };
 
   return (
-    <Button onClick={handleClick} icon loading={isMutating}>
+    <Button
+      onClick={handleClick}
+      icon
+      loading={isMutating}
+      className="animate-appear"
+    >
       logout
     </Button>
   );

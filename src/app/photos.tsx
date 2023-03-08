@@ -19,7 +19,7 @@ export default function Photos({ files }: { files: Document[] | undefined }) {
             <img
               src={`/api/file/${file._id}/thumbnail`}
               alt={file.filename}
-              className="h-full w-full object-cover"
+              className="h-full w-full animate-appear bg-gray-700 object-cover"
             />
           </Link>
         </div>

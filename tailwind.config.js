@@ -5,7 +5,17 @@ module.exports = {
     "./src/commons/components/**/*.tsx",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        appear: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      animation: {
+        appear: "appear 300ms ease-in-out",
+      },
+    },
   },
   future: {
     hoverOnlyWhenSupported: true,

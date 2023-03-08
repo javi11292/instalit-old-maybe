@@ -28,7 +28,7 @@ export default function AppBarButtons() {
 
   if (!session)
     return (
-      <Button href="/login" icon>
+      <Button href="/login" icon className="animate-appear">
         login
       </Button>
     );
@@ -44,7 +44,7 @@ export default function AppBarButtons() {
           accept="image/*"
           onChange={handleChange}
         />
-        <Button icon loading={isMutating}>
+        <Button icon loading={isMutating} className="animate-appear">
           upload
         </Button>
       </label>

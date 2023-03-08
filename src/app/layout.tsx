@@ -32,7 +32,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
               Instalit
             </Button>
           </AppBar>
-          <div className="flex-1 overflow-hidden">{children}</div>
+          <div className="relative flex-1">{children}</div>
         </Main>
       </body>
     </html>
