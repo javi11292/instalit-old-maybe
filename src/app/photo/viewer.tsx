@@ -7,5 +7,11 @@ export default function Viewer() {
 
   const id = searchParams.get("id") || "";
 
-  return <img src={`/api/file/${id}`} alt={id} className="w-full" />;
+  return (
+    <img
+      src={`/api/file/${id}`}
+      alt={id}
+      className="max-h-full w-full object-contain"
+    />
+  );
 }
