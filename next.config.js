@@ -30,11 +30,6 @@ const nextConfig = {
           {
             urlPattern: /.*/,
             handler: "NetworkFirst",
-            options: {
-              matchOptions: {
-                ignoreVary: true,
-              },
-            },
           },
         ],
       })
