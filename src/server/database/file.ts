@@ -1,5 +1,5 @@
 import { Document, GridFSBucket, ObjectId } from "mongodb";
-import { Readable } from "node:stream";
+import type { Readable } from "node:stream";
 import sharp from "sharp";
 
 import { database } from ".";
@@ -75,8 +75,13 @@ export const getThumbnail = async (id: string) => {
   return file?.metadata.thumbnail.buffer;
 };
 
-export const download = (id: string) => {
-  return Readable.toWeb(
-    bucket.openDownloadStream(new ObjectId(id))
-  ) as ReadableStream;
+export const download = async (id: string) => {
+  const _id = new ObjectId(id);
+  const file = await bucket.find({ _id }).next();
+
+  if (!file) throw new Error();
+
+  return bucket.openDownloadStream(
+    new ObjectId(_id)
+  ) as unknown as ReadableStream;
 };
