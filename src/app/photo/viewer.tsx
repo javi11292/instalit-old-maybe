@@ -8,17 +8,17 @@ export default function Viewer() {
   const id = searchParams.get("id") || "";
 
   return (
-    <>
+    <div className="grid">
       <img
         src={`/api/file/${id}/thumbnail`}
         alt={id}
-        className="absolute w-full animate-appear object-contain [max-height:80vh]"
+        className="w-full animate-appear object-contain [max-height:80vh] [grid-area:1/1]"
       />
       <img
         src={`/api/file/${id}`}
         alt={id}
-        className="relative w-full animate-appear object-contain [max-height:80vh]"
+        className="w-full animate-appear object-contain [max-height:80vh] [grid-area:1/1]"
       />
-    </>
+    </div>
   );
 }
