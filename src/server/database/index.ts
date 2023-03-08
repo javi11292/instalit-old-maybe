@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const URL = "mongodb://mongodb:27017";
+const URL = process.env.MONGODB_URL as string;
 
 const client = new MongoClient(URL, {
   auth: {
