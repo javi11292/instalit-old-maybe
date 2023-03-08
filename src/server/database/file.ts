@@ -34,10 +34,7 @@ export const upload = ({
         .jpeg()
         .toBuffer();
 
-      const photo = sharp(buffer)
-        .resize(PHOTO_WIDTH)
-        .jpeg({ quality: 50 })
-        .toBuffer();
+      const photo = sharp(buffer).resize(PHOTO_WIDTH).jpeg().toBuffer();
 
       const stream = bucket.openUploadStream(name, {
         metadata: { userId: new ObjectId(userId), thumbnail: await thumbnail },

@@ -9,7 +9,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const options = {
   matchOptions: {
     ignoreVary: true,
-    ignoreSearch: true,
   },
   plugins: [
     {
@@ -18,9 +17,19 @@ const options = {
         const prefetch = request.headers.get("next-router-prefetch");
         const stateTree = request.headers.get("next-router-state-tree");
 
-        return [rsc, prefetch, stateTree].reduce((acc, header) => {
-          return header ? `${acc}_${header}` : acc;
-        }, request.url);
+        const { value } = [rsc, prefetch, stateTree].reduce(
+          (acc, header) => {
+            if (!header) return acc;
+
+            acc.value = `${acc.value}${acc.separator}${header}`;
+            acc.separator = "&";
+
+            return acc;
+          },
+          { value: request.url.split("?")[0], separator: "?" }
+        );
+
+        return value;
       },
     },
   ],
