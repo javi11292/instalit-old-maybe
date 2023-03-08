@@ -4,7 +4,8 @@ import sharp from "sharp";
 
 import { database } from ".";
 
-const WIDTH = 100;
+const THUMBNAIL_SIZE = 100;
+const PHOTO_WIDTH = 1080;
 
 const bucket = new GridFSBucket(database);
 const collection = database.collection("fs.files");
@@ -28,13 +29,18 @@ export const upload = ({
     file.on("end", async () => {
       const buffer = Buffer.concat(buffers);
 
-      const thumbnail = await sharp(buffer)
-        .resize(WIDTH, WIDTH, { fit: "outside" })
+      const thumbnail = sharp(buffer)
+        .resize(THUMBNAIL_SIZE, THUMBNAIL_SIZE, { fit: "cover" })
         .jpeg()
         .toBuffer();
 
+      const photo = sharp(buffer)
+        .resize(PHOTO_WIDTH)
+        .jpeg({ quality: 50 })
+        .toBuffer();
+
       const stream = bucket.openUploadStream(name, {
-        metadata: { userId: new ObjectId(userId), thumbnail },
+        metadata: { userId: new ObjectId(userId), thumbnail: await thumbnail },
       });
 
       stream.on("error", reject);
@@ -42,7 +48,7 @@ export const upload = ({
         resolve({ _id: stream.id.toString(), filename: name })
       );
 
-      stream.write(buffer);
+      stream.write(await photo);
       stream.end();
     });
   });
