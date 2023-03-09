@@ -48,9 +48,14 @@ const getSW = (buildId) => {
         options,
       },
       {
+        urlPattern: ({ url }) => url.pathname.match(/^\/_next\/static/),
+        handler: "CacheFirst",
+        options: options,
+      },
+      {
         urlPattern: /.*/,
         handler: "CacheFirst",
-        options,
+        options: { ...options, expiration: 600 },
       },
     ],
   });
@@ -69,7 +74,6 @@ const nextConfig = {
   },
 
   webpack(config, { dev, isServer, buildId }) {
-    console.log(buildId);
     if (dev || isServer || process.env.ANALYZE) return config;
 
     config.plugins.push(getSW(buildId));
