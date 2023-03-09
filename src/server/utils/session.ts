@@ -7,9 +7,9 @@ import {
   SessionRequest,
 } from "next/server";
 
-type Handler<T = NextRequest> = (
+type Handler<T = NextRequest, A = unknown> = (
   req: T,
-  args: { params: Record<string, string> }
+  args: { params: A }
 ) => Promise<Response | NextResponse> | Response | NextResponse;
 
 const secret = process.env.SESSION_SECRET || "";
@@ -38,11 +38,8 @@ export const withSession = (handler: Handler) => {
   };
 };
 
-export const withProtectedRoute = (handler: Handler<SessionRequest>) => {
-  return async (
-    req: SessionRequest,
-    args: { params: Record<string, string> }
-  ) => {
+export const withProtectedRoute = <T>(handler: Handler<SessionRequest, T>) => {
+  return async (req: SessionRequest, args: { params: T }) => {
     const session = getSessionToken();
 
     if (!session) {

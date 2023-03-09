@@ -50,6 +50,25 @@ export const upload = ({
   });
 };
 
+export const like = (fileId: string, userId: string, value: boolean) => {
+  const operator = value ? "$addToSet" : "$pull";
+
+  return collection.updateOne(
+    { _id: new ObjectId(fileId) },
+    { [operator]: { "metadata.likes": new ObjectId(userId) } }
+  );
+};
+
+export const getFile = (id: string) => {
+  return collection
+    .find({ _id: new ObjectId(id) })
+    .project({
+      _id: 0,
+      "metadata.likes": 1,
+    })
+    .next();
+};
+
 export const getFiles = (userId: string) => {
   return bucket
     .find({ "metadata.userId": new ObjectId(userId) })

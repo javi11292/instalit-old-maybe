@@ -3,9 +3,9 @@
 import { useSearchParams } from "next/navigation";
 
 export default function Viewer() {
-  const searchParams = useSearchParams();
+  const params = useSearchParams();
 
-  const id = searchParams.get("id") || "";
+  const id = params.get("id") || "";
 
   return (
     <div className="grid">

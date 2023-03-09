@@ -1,6 +1,5 @@
 "use client";
 
-import type { Document } from "mongodb";
 import useSWR, { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
@@ -18,7 +17,7 @@ export default function AppBarButtons() {
     if (currentTarget.files) {
       const newFiles = await trigger({ files: currentTarget.files });
 
-      mutate<Document[]>("/api/file", (files = []) => [...files, ...newFiles], {
+      mutate("/api/file", (files = []) => [...files, ...newFiles], {
         revalidate: false,
       });
     }
