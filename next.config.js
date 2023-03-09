@@ -50,7 +50,7 @@ const getSW = (buildId) => {
       {
         urlPattern: ({ url }) => url.pathname.match(/^\/_next\/static/),
         handler: "CacheFirst",
-        options: options,
+        options,
       },
       {
         urlPattern: /.*/,
