@@ -55,7 +55,7 @@ const getSW = (buildId) => {
       {
         urlPattern: /.*/,
         handler: "CacheFirst",
-        options: { ...options, expiration: 600 },
+        options: { ...options, expiration: { maxAgeSeconds: 600 } },
       },
     ],
   });
